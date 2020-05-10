@@ -44,45 +44,29 @@ begin
 	if RESET='0' then
 		SIPO_reg <= (others => '0');
 	elsif (SHIFTCLOCK'event and SHIFTCLOCK = '1') then
-		SIPO_reg <= (A & SIPO_reg(7) & SIPO_reg(6) & SIPO_reg(5) & SIPO_reg(4) 
-							& SIPO_reg(3) & SIPO_reg(2) & SIPO_reg(1));
+		SIPO_reg <= (SIPO_reg(6) & SIPO_reg(5) & SIPO_reg(4) & SIPO_reg(3) 
+							& SIPO_reg(2) & SIPO_reg(1) & SIPO_reg(0) & A);
 		
 	end if;
 end process;
 
-LATCHs: process(LATCHCLOCK, OUTPUTENABLE)
+LATCHs: process(LATCHCLOCK)
 begin
+
 	if (LATCHCLOCK'event and LATCHCLOCK ='1') then
-		Qa <= SIPO_reg(7);
-		Qb <= SIPO_reg(6);
-		Qc <= SIPO_reg(5);
-		Qd <= SIPO_reg(4);
-		Qe <= SIPO_reg(3);
-		Qf <= SIPO_reg(2);
-		Qg <= SIPO_reg(1);
-		Qh <= SIPO_reg(0);
 		LATCH<=SIPO_reg;
-	elsif(OUTPUTENABLE='1') then
-		Qa <= 'Z';
-		Qb <= 'Z';
-		Qc <= 'Z';
-		Qd <= 'Z';
-		Qe <= 'Z';
-		Qf <= 'Z';
-		Qg <= 'Z';
-		Qh <= 'Z';
-	else
-		Qa <= LATCH(7);
-		Qb <= LATCH(6);
-		Qc <= LATCH(5);
-		Qd <= LATCH(4);
-		Qe <= LATCH(3);
-		Qf <= LATCH(2);
-		Qg <= LATCH(1);
-		Qh <= LATCH(0);
 	end if;
+	
 end process;
 
 SQh <= Sqh_reg(0);
+Qa <= 'Z' when OUTPUTENABLE = '1' else LATCH(0);
+Qb <= 'Z' when OUTPUTENABLE = '1' else LATCH(1);
+Qc <= 'Z' when OUTPUTENABLE = '1' else LATCH(2);
+Qd <= 'Z' when OUTPUTENABLE = '1' else LATCH(3);
+Qe <= 'Z' when OUTPUTENABLE = '1' else LATCH(4);
+Qf <= 'Z' when OUTPUTENABLE = '1' else LATCH(5);
+Qg <= 'Z' when OUTPUTENABLE = '1' else LATCH(6);
+Qh <= 'Z' when OUTPUTENABLE = '1' else LATCH(7);
 
 end top_arch;

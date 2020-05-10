@@ -1,4 +1,4 @@
 Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa
-x  x  x  x  x  x  x  x
-x  x  x  x  x  x  x  x
-x  x  x  x  x  x  x  x
+z  z  z  z  z  z  z  z
+0  1  1  0  1  0  1  0
+z  z  z  z  z  z  z  z

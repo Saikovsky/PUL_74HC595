@@ -10,8 +10,7 @@
 module top_tb;
 
 reg A = 0, SHIFTCLOCK = 0, RESET = 1, LATCHCLOCK = 0, OUTPUTENABLE = 0, Vcc = 1, GND = 0;
-wire Qa = 0, Qb = 0, Qc = 0, Qd = 0, Qe = 0, Qf = 0, Qg = 0, Qh = 0, SQh = 0;
-
+wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 
 	top uut(
 		.A(A), //serial data input
@@ -19,8 +18,8 @@ wire Qa = 0, Qb = 0, Qc = 0, Qd = 0, Qe = 0, Qf = 0, Qg = 0, Qh = 0, SQh = 0;
 		.RESET(RESET), 
 		.LATCHCLOCK(LATCHCLOCK),
 		.OUTPUTENABLE(OUTPUTENABLE),
-		.Vcc(Vcc),
-		.GND(GND),
+		//.Vcc(Vcc),
+		//.GND(GND),
 		.Qa(Qa),
 		.Qb(Qb),
 		.Qc(Qc),
@@ -78,16 +77,15 @@ wire Qa = 0, Qb = 0, Qc = 0, Qd = 0, Qe = 0, Qf = 0, Qg = 0, Qh = 0, SQh = 0;
 	
 	
 	reg latch = 0;
-	always @(LATCHCLOCK, OUTPUTENABLE) begin
+	always @(posedge LATCHCLOCK) begin
 	
 	   if(LATCHCLOCK == 1) begin
 	       #5 latch = 1;
 	   end
-	   
-	   if(latch == 1 && OUTPUTENABLE == 0) begin
-	        $fdisplay(raport, "%b  %b  %b  %b  %b  %b  %b  %b", Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
-	        latch <= 0;
-	   end
 	end
 
+    always @(posedge latch) begin
+	    $fdisplay(raport, "%b  %b  %b  %b  %b  %b  %b  %b", Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
+        latch <= 0;
+    end
 endmodule
