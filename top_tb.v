@@ -38,7 +38,7 @@ wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 	begin
 	   raport = $fopen("raport.txt");
 	   wektory = $fopen("wektory.txt", "r");
-	   $fdisplay(raport, "Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa");
+	   $fdisplay(raport, "SQh|Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa");
 	   RESET <= 0;
 	   #30;
 	   RESET <= 1;
@@ -75,17 +75,13 @@ wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 	end
 	endtask;
 	
+	always @(posedge SHIFTCLOCK) begin
 	
-	reg latch = 0;
-	always @(posedge LATCHCLOCK) begin
-	
-	   if(LATCHCLOCK == 1) begin
-	       #5 latch = 1;
-	   end
-	end
+	#1;
+	if(RESET == 0)
+	   $fdisplay(raport, "            RESET                ");
+    else
+	   $fdisplay(raport, " %b   %b  %b  %b  %b  %b  %b  %b  %b", SQh, Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
 
-    always @(posedge latch) begin
-	    $fdisplay(raport, "%b  %b  %b  %b  %b  %b  %b  %b", Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
-        latch <= 0;
     end
 endmodule
