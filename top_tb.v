@@ -9,8 +9,9 @@
 
 module top_tb;
 
-reg A = 0, SHIFTCLOCK = 0, RESET = 1, LATCHCLOCK = 0, OUTPUTENABLE = 0, Vcc = 1, GND = 0;
+reg A = 0, SHIFTCLOCK = 0, RESET = 1, LATCHCLOCK = 0, OUTPUTENABLE = 0;
 wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
+
 
 	top uut(
 		.A(A), //serial data input
@@ -18,8 +19,6 @@ wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 		.RESET(RESET), 
 		.LATCHCLOCK(LATCHCLOCK),
 		.OUTPUTENABLE(OUTPUTENABLE),
-		//.Vcc(Vcc),
-		//.GND(GND),
 		.Qa(Qa),
 		.Qb(Qb),
 		.Qc(Qc),
@@ -38,7 +37,7 @@ wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 	begin
 	   raport = $fopen("raport.txt");
 	   wektory = $fopen("wektory.txt", "r");
-	   $fdisplay(raport, "SQh|Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa");
+	   $fdisplay(raport, "Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa");
 	   RESET <= 0;
 	   #30;
 	   RESET <= 1;
@@ -75,13 +74,18 @@ wire Qa, Qb, Qc, Qd, Qe, Qf, Qg, Qh, SQh;
 	end
 	endtask;
 	
-	always @(posedge SHIFTCLOCK) begin
 	
-	#1;
-	if(RESET == 0)
-	   $fdisplay(raport, "            RESET                ");
-    else
-	   $fdisplay(raport, " %b   %b  %b  %b  %b  %b  %b  %b  %b", SQh, Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
+	reg latch = 0;
+	always @(LATCHCLOCK, OUTPUTENABLE) begin
+	
+	   if(LATCHCLOCK == 1) begin
+	       #5 latch = 1;
+	   end
+	   
+	   if(latch == 1 && OUTPUTENABLE == 0) begin
+	        $fdisplay(raport, "%b  %b  %b  %b  %b  %b  %b  %b", Qh, Qg, Qf, Qe, Qd, Qc, Qb, Qa);
+	        latch <= 0;
+	   end
+	end
 
-    end
 endmodule

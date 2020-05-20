@@ -24,10 +24,8 @@ end top;
 architecture top_arch of top is
 
 signal SQh_reg : std_logic_vector (7 downto 0);
+signal LATCH : std_logic_vector(7 downto 0) := "00000000";
 
-signal SIPO_reg : std_logic_vector (7 downto 0):="00000000";
-
-signal LATCH : std_logic_vector(7 downto 0):="00000000";
 begin
 
 SISO: process (SHIFTCLOCK, RESET)
@@ -35,31 +33,18 @@ begin
 	if RESET = '0' then
 		SQh_reg <= (others => '0');
 	elsif (SHIFTCLOCK'event and SHIFTCLOCK = '1') then
-		SQh_reg(7 downto 0) <= A & SQh_reg(7 downto 1);
-	end if;
-end process;
-
-SIPO: process (SHIFTCLOCK, RESET)
-begin
-	if RESET='0' then
-		SIPO_reg <= (others => '0');
-	elsif (SHIFTCLOCK'event and SHIFTCLOCK = '1') then
-		SIPO_reg <= (SIPO_reg(6) & SIPO_reg(5) & SIPO_reg(4) & SIPO_reg(3) 
-							& SIPO_reg(2) & SIPO_reg(1) & SIPO_reg(0) & A);
-		
+		SQh_reg(7 downto 0) <= SQh_reg(6 downto 0) & A;
 	end if;
 end process;
 
 LATCHs: process(LATCHCLOCK)
 begin
-
 	if (LATCHCLOCK'event and LATCHCLOCK ='1') then
-		LATCH<=SIPO_reg;
+		LATCH <= SQh_reg;
 	end if;
-	
 end process;
 
-SQh <= Sqh_reg(0);
+SQh <= Sqh_reg(7);
 Qa <= 'Z' when OUTPUTENABLE = '1' else LATCH(0);
 Qb <= 'Z' when OUTPUTENABLE = '1' else LATCH(1);
 Qc <= 'Z' when OUTPUTENABLE = '1' else LATCH(2);
