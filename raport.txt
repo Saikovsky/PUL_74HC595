@@ -1,24 +1,24 @@
 SQh|Qh|Qg|Qf|Qe|Qd|Qc|Qb|Qa
-              RESET                
- 0   0  0  0  0  0  0  0  0
- 0   0  0  0  0  0  0  0  0
- 0   0  0  0  0  0  0  0  0
- 0   z  z  z  z  z  z  z  z
- 0   z  z  z  z  z  z  z  z
- 0   z  z  z  z  z  z  z  z
- 0   z  z  z  z  z  z  z  z
- 0   z  z  z  z  z  z  z  z
- 0   z  z  z  z  z  z  z  z
- 1   0  0  1  1  0  0  1  1
- 1   0  0  1  1  0  0  1  1
- 0   0  0  1  1  0  0  1  1
- 0   0  0  1  1  0  0  1  1
- 1   0  1  1  0  1  0  1  0
- 1   0  1  1  0  1  0  1  0
-              RESET                
- 0   z  z  z  z  z  z  z  z
- 0   0  1  1  0  1  0  1  0
- 0   z  z  z  z  z  z  z  z
- 0   0  0  0  0  0  0  1  1
- 0   0  0  0  0  0  0  1  1
- 0   0  0  0  0  0  0  1  1
+            RESET                
+0   0  0  0  0  0  0  0  0
+0   0  0  0  0  0  0  0  0
+0   0  0  0  0  0  0  0  0
+0   z  z  z  z  z  z  z  z
+0   z  z  z  z  z  z  z  z
+0   z  z  z  z  z  z  z  z
+0   z  z  z  z  z  z  z  z
+0   z  z  z  z  z  z  z  z
+0   z  z  z  z  z  z  z  z
+0   0  0  1  1  0  0  1  1
+1   0  0  1  1  0  0  1  1
+1   0  0  1  1  0  0  1  1
+0   0  0  1  1  0  0  1  1
+0   0  1  1  0  1  0  1  0
+1   0  1  1  0  1  0  1  0
+            RESET                
+0   z  z  z  z  z  z  z  z
+0   0  1  1  0  1  0  1  0
+0   z  z  z  z  z  z  z  z
+0   0  0  0  0  0  0  1  1
+0   0  0  0  0  0  0  1  1
+0   0  0  0  0  0  0  1  1
